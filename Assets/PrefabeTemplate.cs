@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,5 +15,7 @@ public class PrefabeTemplate : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x, transform.position.y + 0.01f);
 
+        if (transform.position.y > 2)
+            Destroy(gameObject);
     }
 }
