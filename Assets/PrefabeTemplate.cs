@@ -7,7 +7,7 @@ public class PrefabeTemplate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        // I wrote this line
     }
 
     // Update is called once per frame
