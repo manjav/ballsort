@@ -5,41 +5,58 @@ using UnityEngine;
 public class GlassesManager : MonoBehaviour
 { 
     public int glassCount;
+    public Vector2 offset, gap;
+
     public GameObject glass;
     public List<GameObject> Glasses = new List<GameObject>();
+    public int tempGlassNumber;
+    public GameObject tempLastGlass;
+
     public int[] ballColor;
     public Ball.BallType tempBallType;
-    public int tempGlassNumber;
-    public Vector2 offset = new Vector2(-1.5f, 1);
-    public Vector2 gap = new Vector2(2, 2);
+    public int tempLastBallPos;
+
 
     private void Start()
     {
-        #region old
-        //ballColor[0] = 1;
-        //ballColor[1] = Color.red;
-        //ballColor[2] = Color.yellow;
-        //ballColor[3] = Color.cyan;
-        //ballColor[4] = Color.gray;
-        //ballColor[5] = Color.yellow;
-        //ballColor[6] = Color.cyan;
-        #endregion
+        ballColor[0] = 1;
+        ballColor[1] = 1;
+        ballColor[2] = 2;
+        ballColor[3] = 2;
+        ballColor[4] = 1;
+        ballColor[5] = 1;
+        ballColor[6] = 2;
+        ballColor[7] = 2;
+
+
         #region Creating, Sorting and Fix Position of Glasses
-        var numCols = 4;
-        var padding = (numCols - glassCount % numCols)*.5f;
+        float numCols = glassCount;
+        if (glassCount > 5) numCols = Mathf.Floor((glassCount / 2) + (glassCount % 2));
+        print(numCols);
+
+        //offset.x = -(numCols - 1); // halign(center) if offset.x = 2
+        offset.x = -((numCols/2) - .5f); // halign(center) if offset = 1
+
+        var padding = (numCols - glassCount % numCols) * .5f;
         var numLines = Mathf.Floor(glassCount / numCols);
+        if (glassCount > 5) offset.y = 1.4f;
+
+        // Set Gap if offset.x = 2
+        //offset.x += ((numCols / 10) + .5f)+ 2.4f;
+        //gap.x -= (numCols / 10) + .5f;
 
         for (int i = 0; i < glassCount; i++)
         {
             float row = Mathf.Floor(i / numCols);
             var col = i % numCols;
-            //Debug.Log(i+" "+row+" "+col);
 
             float alignPadding = 0;
-            if (row == numLines)
+            if (row == numLines) //padding: row(2).halign(center)
                 alignPadding = padding;
 
-            var glassPos = new Vector3(alignPadding + col *gap.x + offset.x, row * gap.y + offset.y, -1);
+            Debug.Log(i + "  Row: " + row + "  Col: " + col);
+
+            var glassPos = new Vector3(alignPadding + col * gap.x + offset.x, row * gap.y + offset.y, -1);
             var g = Instantiate(glass, glassPos, Quaternion.identity);
             g.GetComponent<Glass>().glassesManager = gameObject;
             g.GetComponent<Glass>().glassNumber = i;
@@ -56,10 +73,10 @@ public class GlassesManager : MonoBehaviour
         {
             for (int j = 0; j < 4; j++)
             {
-                //Glasses[i].transform.GetChild(j).GetComponent<Ball>().ballType = ballColor[ballIndex];
+                Ball.BallType tempValue = (Ball.BallType)ballColor[ballIndex];
+                Glasses[i].transform.GetChild(j).GetComponent<Ball>().ballType = tempValue;
                 ballIndex++;
             }
         }
     }
-    
 }

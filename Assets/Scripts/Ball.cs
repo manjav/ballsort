@@ -4,37 +4,35 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public enum BallType {clear, blue, red, green, yellow};
+    public enum BallType {clear, blue, red, green, yellow, orange, purple, aqua};
     public BallType ballType;
-    Color tempColor;
     public Sprite[] imageIndex;
 
-    public GameObject glassesManager;
-    public float Y, PosY;
+    Color colorAlpha;
+    public float Y, PosY, StartPosY;
 
     private void Start()
     {
-        tempColor = GetComponent<SpriteRenderer>().color;
-        glassesManager = GameObject.Find("GlassesManager");
+        PosY = transform.position.y + StartPosY;
+        Y = transform.position.y;
+        colorAlpha = GetComponent<SpriteRenderer>().color;
     }
 
     void Update()
     {
-        //if (gameObject.name == "TempBall")
-        {
-            //tempColor.a += (1 - tempColor.a) / 5;
-            if (ballType == BallType.blue) GetComponent<SpriteRenderer>().sprite = imageIndex[0];
-            if (ballType == BallType.red) GetComponent<SpriteRenderer>().sprite = imageIndex[1];
-            if (ballType == BallType.green) GetComponent<SpriteRenderer>().sprite = imageIndex[2];
-            if (ballType == BallType.yellow) GetComponent<SpriteRenderer>().sprite = imageIndex[3];
-        }
-        //else
-        {
-            //tempColor.a = (0 - tempColor.a) / 2;
-        }
-        GetComponent<SpriteRenderer>().color = tempColor;
+        if (ballType != BallType.clear) GetComponent<SpriteRenderer>().sprite = imageIndex[(int)ballType - 1];
+        else GetComponent<SpriteRenderer>().sprite = null;
 
-        if (gameObject.name == "TempBall")
+        if (ballType != BallType.clear)
+        {
+            colorAlpha.a += (1 - colorAlpha.a) / 7;
+        }
+        else if (gameObject.name != "AnimBall0" && gameObject.name != "AnimBall1")
+        {
+            colorAlpha.a += (-2 - colorAlpha.a) / 7;
+        }
+        GetComponent<SpriteRenderer>().color = colorAlpha;
+
         {
             PosY += (Y - PosY) / 5;
             transform.position = new Vector3(transform.position.x, PosY);
