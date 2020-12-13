@@ -10,14 +10,10 @@ public class Glass : MonoBehaviour
     public GameObject animBall0, animBall1;
     public bool glassIsFull;
 
-    public AudioSource sndClick, sndGlassFull;
-
     private void Start()
     {
         animBall0 = GameObject.Find("AnimBall0");
         animBall1 = GameObject.Find("AnimBall1");
-        sndClick = GetComponent<AudioSource>();
-        sndGlassFull = transform.GetChild(4).GetComponent<AudioSource>();
     }
 
     void OnMouseDown()
@@ -37,7 +33,6 @@ public class Glass : MonoBehaviour
                 PutToNewGlass();
             }
         }
-        sndClick.Play();
     }
 
     public void SendToPortal()
@@ -150,8 +145,10 @@ public class Glass : MonoBehaviour
                         glassIsFull = true;
                         transform.GetChild(4).GetComponent<SpriteRenderer>().enabled = true;
                         transform.GetChild(4).GetComponent<Animator>().SetBool("Open", true);
-                        sndGlassFull.Play();
+                        FindObjectOfType<AudioManager>().Play(Audio.Clip.GlassFully);
                         StartCoroutine(GlassFullParticle());
+                        glassesManager.GetComponent<GlassesManager>().fullGlassesCount += 1;
+                        glassesManager.GetComponent<GlassesManager>().StartCoroutine(glassesManager.GetComponent<GlassesManager>().CheckGlassesFully());
                         return;
                     }
                 }

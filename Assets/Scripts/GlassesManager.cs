@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GlassesManager : MonoBehaviour
-{ 
+{
     public int glassCount;
     public Vector2 offset, gap;
 
@@ -11,14 +12,15 @@ public class GlassesManager : MonoBehaviour
     public List<GameObject> Glasses = new List<GameObject>();
     public int tempGlassNumber;
     public GameObject tempLastGlass;
+    public int fullGlassesCount;
 
     public int[] ballColor;
     public Ball.BallType tempBallType;
     public int tempLastBallPos;
 
-
     private void Start()
     {
+        ballColor = new int[glassCount * 4];
         ballColor[0] = 1;
         ballColor[1] = 1;
         ballColor[2] = 2;
@@ -28,11 +30,9 @@ public class GlassesManager : MonoBehaviour
         ballColor[6] = 2;
         ballColor[7] = 2;
 
-
         #region Creating, Sorting and Fix Position of Glasses
         float numCols = glassCount;
         if (glassCount > 5) numCols = Mathf.Floor((glassCount / 2) + (glassCount % 2));
-        print(numCols);
 
         //offset.x = -(numCols - 1); // halign(center) if offset.x = 2
         offset.x = -((numCols/2) - .5f); // halign(center) if offset = 1
@@ -54,7 +54,7 @@ public class GlassesManager : MonoBehaviour
             if (row == numLines) //padding: row(2).halign(center)
                 alignPadding = padding;
 
-            Debug.Log(i + "  Row: " + row + "  Col: " + col);
+            //Debug.Log(i + "  Row: " + row + "  Col: " + col);
 
             var glassPos = new Vector3(alignPadding + col * gap.x + offset.x, row * gap.y + offset.y, -1);
             var g = Instantiate(glass, glassPos, Quaternion.identity);
@@ -77,6 +77,15 @@ public class GlassesManager : MonoBehaviour
                 Glasses[i].transform.GetChild(j).GetComponent<Ball>().ballType = tempValue;
                 ballIndex++;
             }
+        }
+    }
+
+    public IEnumerator CheckGlassesFully()
+    {
+        if ((glassCount == 3 && fullGlassesCount == 2) || (glassCount > 3 && fullGlassesCount == glassCount - 2))
+        {
+            yield return new WaitForSeconds(2);
+            FindObjectOfType<AudioManager>().Play(Audio.Clip.Win);
         }
     }
 }
