@@ -18,6 +18,8 @@ public class GlassesManager : MonoBehaviour
     public Ball.BallType tempBallType;
     public int tempLastBallPos;
 
+    public GameObject gameEndFrm;
+
     private void Start()
     {
         ballColor = new int[glassCount * 4];
@@ -84,8 +86,9 @@ public class GlassesManager : MonoBehaviour
     {
         if ((glassCount == 3 && fullGlassesCount == 2) || (glassCount > 3 && fullGlassesCount == glassCount - 2))
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1.5f);
             FindObjectOfType<AudioManager>().Play(Audio.Clip.Win);
+            Instantiate(gameEndFrm);
         }
     }
 }
