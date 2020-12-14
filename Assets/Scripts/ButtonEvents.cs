@@ -6,22 +6,24 @@ using UnityEngine.SceneManagement;
 
 public class ButtonEvents : MonoBehaviour
 {
-    public SpriteButton resetButton;
-    public SpriteButton glassPlusButton;
-
-    private void Start()
-    {
-        resetButton.onClick += resetButton_clickHandler;
-        glassPlusButton.onClick += glassPlusButton_clickHandler;
-    }
-
-    public void resetButton_clickHandler()
+    public void ReloadLevel()
     {
         SceneManager.LoadScene("Play");
     }
 
-    public void glassPlusButton_clickHandler()
+    public void AddNewGlass()
     {
         print("Glass Add");
+    }
+
+    public void LoadNextLevel()
+    {
+        GameManager.level++;
+        ReloadLevel();
+    }
+
+    public void ShowLevels()
+    {
+        print("ShowLevels");
     }
 }

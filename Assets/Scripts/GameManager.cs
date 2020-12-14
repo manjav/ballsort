@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int level = 1;
+    static public int level = 1;
     public Text levelText;
 
     private void Start()

@@ -88,7 +88,7 @@ public class GlassesManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1.5f);
             FindObjectOfType<AudioManager>().Play(Audio.Clip.Win);
-            Instantiate(gameEndFrm);
+            gameEndFrm.SetActive(true);
         }
     }
 }
