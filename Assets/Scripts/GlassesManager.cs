@@ -18,7 +18,7 @@ public class GlassesManager : MonoBehaviour
     public Ball.BallType tempBallType;
     public int tempLastBallPos;
 
-    public GameObject gameEndFrm;
+    public GameObject gameEndBox;
 
     private void Start()
     {
@@ -88,7 +88,8 @@ public class GlassesManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1.5f);
             FindObjectOfType<AudioManager>().Play(Audio.Clip.Win);
-            gameEndFrm.SetActive(true);
+            gameEndBox.SetActive(true);
+            gameEndBox.GetComponent<Animator>().SetBool("Open", true);
         }
     }
 }
