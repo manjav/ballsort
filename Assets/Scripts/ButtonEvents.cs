@@ -8,7 +8,7 @@ public class ButtonEvents : MonoBehaviour
 {
     public void ReloadLevel()
     {
-        SceneManager.LoadScene("Play");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void AddNewGlass()
