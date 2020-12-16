@@ -22,6 +22,11 @@ public class GlassesManager : MonoBehaviour
 
     private void Start()
     {
+
+        // glassCount => GameManager.currentLevel.glasses.Count;
+        // ballColor => GameManager.currentLevel.glasses;
+        // Reterive third ball of second glass => GameManager.currentLevel.glasses[1][2] = Ball.BallType.blue;
+
         ballColor = new int[glassCount * 4];
         ballColor[0] = 1;
         ballColor[1] = 1;
@@ -37,7 +42,7 @@ public class GlassesManager : MonoBehaviour
         if (glassCount > 5) numCols = Mathf.Floor((glassCount / 2) + (glassCount % 2));
 
         //offset.x = -(numCols - 1); // halign(center) if offset.x = 2
-        offset.x = -((numCols/2) - .5f); // halign(center) if offset = 1
+        offset.x = -((numCols / 2) - .5f); // halign(center) if offset = 1
 
         var padding = (numCols - glassCount % numCols) * .5f;
         var numLines = Mathf.Floor(glassCount / numCols);

@@ -18,7 +18,6 @@ public class ButtonEvents : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        GameManager.level++;
         ReloadLevel();
     }
 
