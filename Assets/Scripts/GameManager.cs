@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    static public int level = 1;
+    static public Level level;
     public Text levelText;
 
     private void Start()
     {
-        levelText.text = "level " + level.ToString();
+        levelText.text = "level " + level.index.ToString();
     }
 }
