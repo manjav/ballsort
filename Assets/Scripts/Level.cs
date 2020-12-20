@@ -7,8 +7,7 @@ public class Level
 {
     public int index;
     public int prize;
-    public int glassCount;
-    public List<List<BallType>> glasses;
+     public List<List<Ball.Type>> glasses;
 
     public int glassCount
     {
