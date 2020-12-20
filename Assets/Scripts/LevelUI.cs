@@ -5,10 +5,9 @@ public class LevelUI : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private Text levelText;
-    void Start()
+
+    internal void Refresh()
     {
-        levelText.text = "level " + GameManager.Instance.currentLevel.index.ToString();
+        levelText.text = "Level " + (GameManager.Instance.currentLevel.index + 1).ToString();
     }
-
-
 }
