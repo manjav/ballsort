@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<Levels xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Level>
+    <GlassCount>3</GlassCount>
+    <ballColor>1</ballColor>
+  </Level>
+  <Level>
+    <GlassCount>3</GlassCount>
+    <ballColor>1</ballColor>
+  </Level>
+</Levels>

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GlassesManager : MonoBehaviour
 {
-    public int glassCount;
+    public Level level;
     public Vector2 offset, gap;
 
     public GameObject glass;
@@ -22,20 +22,19 @@ public class GlassesManager : MonoBehaviour
 
     private void Start()
     {
-
-        // glassCount => GameManager.currentLevel.glasses.Count;
+        var glassCount = GameManager.currentLevel.glasses.Count;
         // ballColor => GameManager.currentLevel.glasses;
         // Reterive third ball of second glass => GameManager.currentLevel.glasses[1][2] = Ball.BallType.blue;
 
-        ballColor = new int[glassCount * 4];
-        ballColor[0] = 1;
-        ballColor[1] = 1;
-        ballColor[2] = 2;
-        ballColor[3] = 2;
-        ballColor[4] = 1;
-        ballColor[5] = 1;
-        ballColor[6] = 2;
-        ballColor[7] = 2;
+        //ballColor = new int[level.glassCount * 4];
+        //ballColor[0] = 1;
+        //ballColor[1] = 1;
+        //ballColor[2] = 2;
+        //ballColor[3] = 2;
+        //ballColor[4] = 1;
+        //ballColor[5] = 1;
+        //ballColor[6] = 2;
+        //ballColor[7] = 2;
 
         #region Creating, Sorting and Fix Position of Glasses
         float numCols = glassCount;
@@ -52,7 +51,7 @@ public class GlassesManager : MonoBehaviour
         //offset.x += ((numCols / 10) + .5f)+ 2.4f;
         //gap.x -= (numCols / 10) + .5f;
 
-        for (int i = 0; i < glassCount; i++)
+        for (int i = 0; i < level.glassCount; i++)
         {
             float row = Mathf.Floor(i / numCols);
             var col = i % numCols;
@@ -76,25 +75,28 @@ public class GlassesManager : MonoBehaviour
     public void InstallGlasses()
     {
         var ballIndex = 0;
-        for (int i = 0; i < glassCount; i++)
+        for (int i = 0; i < level.glassCount; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                Ball.BallType tempValue = (Ball.BallType)ballColor[ballIndex];
-                Glasses[i].transform.GetChild(j).GetComponent<Ball>().ballType = tempValue;
-                ballIndex++;
+                //Ball.BallType tempValue = (Ball.BallType)ballColor[ballIndex];
+                //Glasses[i].transform.GetChild(j).GetComponent<Ball>().ballType = tempValue;
+                //ballIndex++;
+
+                Glasses[i].transform.GetChild(j).GetComponent<Ball>().ballType = level.glasses[i][j];
             }
         }
     }
 
     public IEnumerator CheckGlassesFully()
     {
-        if ((glassCount == 3 && fullGlassesCount == 2) || (glassCount > 3 && fullGlassesCount == glassCount - 2))
+        if ((level.glassCount == 3 && fullGlassesCount == 2) || (level.glassCount > 3 && fullGlassesCount == level.glassCount - 2))
         {
             yield return new WaitForSeconds(1.5f);
             FindObjectOfType<AudioManager>().Play(Audio.Clip.Win);
             gameEndBox.SetActive(true);
             gameEndBox.GetComponent<Animator>().SetBool("Open", true);
+            GameManager.gameEnd = true;
         }
     }
 }

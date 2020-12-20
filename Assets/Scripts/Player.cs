@@ -2,7 +2,6 @@
 
 public class Player : PlayerPrefs
 {
-
     private int _lastLevel;
     public int lastLevel
     {

@@ -167,7 +167,7 @@ public class Glass : MonoBehaviour
 
     public IEnumerator GlassFullParticle()
     {
-        while (true)
+        while (true && GameManager.gameEnd == false)
         {
             yield return new WaitForSeconds((float)Random.Range(.001f, .3f));
             var g = Instantiate(glassFullParticle, new Vector2(transform.position.x + Random.Range(-.15f, .15f), transform.position.y + 1.1f), Quaternion.identity);

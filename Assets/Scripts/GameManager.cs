@@ -5,16 +5,18 @@ public class GameManager : MonoBehaviour
 {
     static public Level currentLevel;
     static public Player player;
-    public Text levelText;
+    static public Text levelText;
+    static public bool gameEnd;
 
     private void Start()
     {
         player = new Player();
+        gameEnd = false;
     }
 
     static public void LoadLevel()
     {
         // load xml player.lastLevel
-        // levelText.text = "level " + currentLevel.index.ToString();
+        levelText.text = "level " + currentLevel.index.ToString();
     }
 }
