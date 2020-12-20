@@ -10,5 +10,6 @@ public class EndLevelBox : MonoBehaviour
         coinText.text = "x " + GameManager.currentLevel.prize;
 
         GameManager.Instance.player.lastLevel++;
+        GameManager.Instance.ShowLevel();
     }
 }

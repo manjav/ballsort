@@ -12,7 +12,7 @@ public class GameManager : Singleton<GameManager>
         player = new Player();
     }
 
-    static public void LoadLevel()
+    public void ShowLevel()
     {
         // load xml player.lastLevel
     }
