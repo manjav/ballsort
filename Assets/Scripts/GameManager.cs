@@ -23,7 +23,9 @@ public class GameManager : Singleton<GameManager>
         var serializer = new XmlSerializer(typeof(Level));
         using (var reader = new System.IO.StringReader(levels[index].text))
         {
-            return serializer.Deserialize(reader) as Level;
+            var level = serializer.Deserialize(reader) as Level;
+            level.index = index;
+            return level;
         }
     }
 

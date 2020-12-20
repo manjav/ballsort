@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 [Serializable]
 public class Level
 {
-    [XmlAttribute("index")] public int index = -1;
+    [XmlIgnore] public int index = -1;
     [XmlAttribute("prize")] public int prize;
     [XmlArrayItem("glass")] public List<List<Ball.Type>> glasses;
 
