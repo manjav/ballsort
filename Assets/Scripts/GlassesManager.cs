@@ -15,14 +15,14 @@ public class GlassesManager : MonoBehaviour
     public int fullGlassesCount;
 
     public int[] ballColor;
-    public Ball.BallType tempBallType;
+    public Ball.Type tempBallType;
     public int tempLastBallPos;
 
     public GameObject gameEndBox;
 
     private void Start()
     {
-        var glassCount = GameManager.currentLevel.glasses.Count;
+        var glassCount = GameManager.Instance.currentLevel.glassCount;
         // ballColor => GameManager.currentLevel.glasses;
         // Reterive third ball of second glass => GameManager.currentLevel.glasses[1][2] = Ball.BallType.blue;
 
@@ -83,7 +83,7 @@ public class GlassesManager : MonoBehaviour
                 //Glasses[i].transform.GetChild(j).GetComponent<Ball>().ballType = tempValue;
                 //ballIndex++;
 
-                Glasses[i].transform.GetChild(j).GetComponent<Ball>().ballType = level.glasses[i][j];
+                // Glasses[i].transform.GetChild(j).GetComponent<Ball>().ballType = level.glasses[i][j];
             }
         }
     }
@@ -96,7 +96,7 @@ public class GlassesManager : MonoBehaviour
             FindObjectOfType<AudioManager>().Play(Audio.Clip.Win);
             gameEndBox.SetActive(true);
             gameEndBox.GetComponent<Animator>().SetBool("Open", true);
-            GameManager.gameEnd = true;
+            GameManager.Instance.gameEnd = true;
         }
     }
 }
