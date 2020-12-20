@@ -1,13 +1,13 @@
-using System.Collections.Generic;
-using static Ball;
+﻿using System.Collections.Generic;
 using System;
+using System.Xml.Serialization;
 
 [Serializable]
-public class Level 
+public class Level
 {
-    public int index;
-    public int prize;
-     public List<List<Ball.Type>> glasses;
+    [XmlAttribute("index")] public int index;
+    [XmlAttribute("prize")] public int prize;
+    [XmlArrayItem("glass")] public List<List<Ball.Type>> glasses;
 
     public int glassCount
     {

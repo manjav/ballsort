@@ -15,6 +15,9 @@ public class GameManager : Singleton<GameManager>
     public void ShowLevel()
     {
         // load xml player.lastLevel
+        if (currentLevel == null || currentLevel.index != player.lastLevel)
+            currentLevel = LoadLevel(player.lastLevel);
+    }
 
     /* public void SaveLevel()
     {
@@ -32,5 +35,13 @@ public class GameManager : Singleton<GameManager>
         serializer.Serialize(stream, level);
         stream.Close();
     } */
+
+    public Level LoadLevel(int index)
+    {
+        var serializer = new XmlSerializer(typeof(Level));
+        using (var reader = new System.IO.StringReader(levels[index].text))
+        {
+            return serializer.Deserialize(reader) as Level;
+        }
     }
 }
