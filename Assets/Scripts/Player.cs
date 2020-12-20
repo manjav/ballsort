@@ -2,12 +2,12 @@
 
 public class Player : PlayerPrefs
 {
-    private int _lastLevel;
+    private int _lastLevel = -1;
     public int lastLevel
     {
         get
         {
-            if (_lastLevel > 0)
+            if (_lastLevel > -1)
                 return _lastLevel;
             if (HasKey("lastLevel"))
                 _lastLevel = GetInt("lastLevel");
