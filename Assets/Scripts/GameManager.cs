@@ -1,22 +1,30 @@
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
-    public Level currentLevel;
-    public Player player;
+    [HideInInspector] public Player player;
+    [HideInInspector] public Level currentLevel;
+    public List<TextAsset> levels;
     public bool gameEnd;
 
-    void Start()
+    public void LoadLevel()
     {
-        player = new Player();
-    }
-
-    public void ShowLevel()
-    {
+        if (player == null)
+            player = new Player();
         // load xml player.lastLevel
         if (currentLevel == null || currentLevel.index != player.lastLevel)
             currentLevel = LoadLevel(player.lastLevel);
+    }
+
+    public Level LoadLevel(int index)
+    {
+        var serializer = new XmlSerializer(typeof(Level));
+        using (var reader = new System.IO.StringReader(levels[index].text))
+        {
+            return serializer.Deserialize(reader) as Level;
+        }
     }
 
     /* public void SaveLevel()
@@ -36,12 +44,4 @@ public class GameManager : Singleton<GameManager>
         stream.Close();
     } */
 
-    public Level LoadLevel(int index)
-    {
-        var serializer = new XmlSerializer(typeof(Level));
-        using (var reader = new System.IO.StringReader(levels[index].text))
-        {
-            return serializer.Deserialize(reader) as Level;
-        }
-    }
 }

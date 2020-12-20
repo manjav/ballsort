@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EndLevelBox : MonoBehaviour
@@ -8,8 +9,11 @@ public class EndLevelBox : MonoBehaviour
     void Start()
     {
         coinText.text = "x " + GameManager.Instance.currentLevel.prize;
-
         GameManager.Instance.player.lastLevel++;
-        GameManager.Instance.ShowLevel();
+    }
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
