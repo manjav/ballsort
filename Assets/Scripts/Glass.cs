@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class Glass : MonoBehaviour
 {
-    public List<GameObject> balls = new List<GameObject>();
-    public GameObject glassesManager;
-    public int glassNumber;
+    public int index;
+    private GlassesManager manager;
+    // public List<Ball> balls = new List<Ball>();
     public GameObject animBall0, animBall1;
     public bool glassIsFull;
+
+    public Glass Init(GlassesManager manager, int index, List<Ball.Type> data)
+    {
+        this.manager = manager;
+        this.index = index;
+        for (int i = 0; i < data.Count; i++)
+            transform.GetChild(i).GetComponent<Ball>().type = data[i];
+        return this;
+    }
 
     private void Start()
     {
@@ -18,13 +27,13 @@ public class Glass : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (glassesManager.GetComponent<GlassesManager>().tempBallType == Ball.Type.clear)
+        if (manager.tempBallType == Ball.Type.clear)
         {
             SendToPortal();
         }
         else
         {
-            if (glassesManager.GetComponent<GlassesManager>().tempGlassNumber == glassNumber)
+            if (manager.tempGlassNumber == index)
             {
                 BackToLastGlass();
             }
@@ -41,14 +50,14 @@ public class Glass : MonoBehaviour
         {
             if (transform.GetChild(i).GetComponent<Ball>().type != Ball.Type.clear && glassIsFull != true)
             {
-                glassesManager.GetComponent<GlassesManager>().tempBallType = transform.GetChild(i).GetComponent<Ball>().type;
+                manager.tempBallType = transform.GetChild(i).GetComponent<Ball>().type;
                 transform.GetChild(i).GetComponent<Ball>().type = Ball.Type.clear;
-                glassesManager.GetComponent<GlassesManager>().tempLastBallPos = i;
-                glassesManager.GetComponent<GlassesManager>().tempLastGlass = transform.gameObject;
-                glassesManager.GetComponent<GlassesManager>().tempGlassNumber = glassNumber;
+                manager.tempLastBallPos = i;
+                manager.tempLastGlass = transform.gameObject;
+                manager.tempGlassNumber = index;
 
                 animBall0.transform.position = new Vector2(transform.position.x, transform.GetChild(i).position.y);
-                animBall0.GetComponent<Ball>().type = glassesManager.GetComponent<GlassesManager>().tempBallType;
+                animBall0.GetComponent<Ball>().type = manager.tempBallType;
                 animBall0.GetComponent<Ball>().PosY = transform.GetChild(i).position.y;
                 animBall0.GetComponent<Ball>().Y = transform.position.y + 1.5f;
 
@@ -61,11 +70,11 @@ public class Glass : MonoBehaviour
 
     public void BackToLastGlass()
     {
-        transform.GetChild(glassesManager.GetComponent<GlassesManager>().tempLastBallPos).GetComponent<Ball>().type = glassesManager.GetComponent<GlassesManager>().tempBallType;
-        glassesManager.GetComponent<GlassesManager>().tempBallType = Ball.Type.clear;
+        transform.GetChild(manager.tempLastBallPos).GetComponent<Ball>().type = manager.tempBallType;
+        manager.tempBallType = Ball.Type.clear;
 
-        animBall0.GetComponent<Ball>().type = transform.GetChild(glassesManager.GetComponent<GlassesManager>().tempLastBallPos).GetComponent<Ball>().type;
-        animBall0.GetComponent<Ball>().Y = transform.GetChild(glassesManager.GetComponent<GlassesManager>().tempLastBallPos).position.y;
+        animBall0.GetComponent<Ball>().type = transform.GetChild(manager.tempLastBallPos).GetComponent<Ball>().type;
+        animBall0.GetComponent<Ball>().Y = transform.GetChild(manager.tempLastBallPos).position.y;
 
         animBall1.GetComponent<Ball>().type = Ball.Type.clear;
 
@@ -76,8 +85,8 @@ public class Glass : MonoBehaviour
     {
         if (transform.GetChild(0).GetComponent<Ball>().type == Ball.Type.clear) // Check glass free and put to glass spot(0)
         {
-            transform.GetChild(0).GetComponent<Ball>().type = glassesManager.GetComponent<GlassesManager>().tempBallType;
-            glassesManager.GetComponent<GlassesManager>().tempBallType = Ball.Type.clear;
+            transform.GetChild(0).GetComponent<Ball>().type = manager.tempBallType;
+            manager.tempBallType = Ball.Type.clear;
 
             animBall0.GetComponent<Ball>().type = transform.GetChild(0).GetComponent<Ball>().type;
             animBall0.transform.position = new Vector3(transform.position.x, animBall0.transform.position.y);
@@ -91,10 +100,10 @@ public class Glass : MonoBehaviour
             for (int i = 0; i <= 3; i++) // Check color and spots free and put to glass
             {
                 if ((transform.GetChild(i).GetComponent<Ball>().type == Ball.Type.clear)
-                    && (transform.GetChild(i - 1).GetComponent<Ball>().type == glassesManager.GetComponent<GlassesManager>().tempBallType))
+                    && (transform.GetChild(i - 1).GetComponent<Ball>().type == manager.tempBallType))
                 {
-                    transform.GetChild(i).GetComponent<Ball>().type = glassesManager.GetComponent<GlassesManager>().tempBallType;
-                    glassesManager.GetComponent<GlassesManager>().tempBallType = Ball.Type.clear;
+                    transform.GetChild(i).GetComponent<Ball>().type = manager.tempBallType;
+                    manager.tempBallType = Ball.Type.clear;
 
                     animBall0.GetComponent<Ball>().type = transform.GetChild(i).GetComponent<Ball>().type;
                     animBall0.transform.position = new Vector3(transform.position.x, animBall0.transform.position.y);
@@ -111,18 +120,18 @@ public class Glass : MonoBehaviour
             for (int i = 3; i >= 0; i--) // Back to last glass and send new ball to portal.
             {
                 if ((transform.GetChild(i).GetComponent<Ball>().type != Ball.Type.clear)
-                    && (transform.GetChild(i).GetComponent<Ball>().type != glassesManager.GetComponent<GlassesManager>().tempBallType))
+                    && (transform.GetChild(i).GetComponent<Ball>().type != manager.tempBallType))
                 {
-                    glassesManager.GetComponent<GlassesManager>().tempLastGlass.transform.GetChild(glassesManager.GetComponent<GlassesManager>().tempLastBallPos).GetComponent<Ball>().type = glassesManager.GetComponent<GlassesManager>().tempBallType;
-                    glassesManager.GetComponent<GlassesManager>().tempBallType = Ball.Type.clear;
+                    manager.tempLastGlass.transform.GetChild(manager.tempLastBallPos).GetComponent<Ball>().type = manager.tempBallType;
+                    manager.tempBallType = Ball.Type.clear;
 
-                    animBall0.GetComponent<Ball>().Y = glassesManager.GetComponent<GlassesManager>().tempLastGlass.transform.GetChild(glassesManager.GetComponent<GlassesManager>().tempLastBallPos).position.y;
-                    glassesManager.GetComponent<GlassesManager>().tempLastGlass.GetComponent<Glass>().CheckGlassFull(); //LastGlass.CheckGlassFull
+                    animBall0.GetComponent<Ball>().Y = manager.tempLastGlass.transform.GetChild(manager.tempLastBallPos).position.y;
+                    manager.tempLastGlass.GetComponent<Glass>().CheckGlassFull(); //LastGlass.CheckGlassFull
 
-                    animBall1.GetComponent<Ball>().type = glassesManager.GetComponent<GlassesManager>().tempLastGlass.transform.GetChild(glassesManager.GetComponent<GlassesManager>().tempLastBallPos).GetComponent<Ball>().type;
-                    animBall1.GetComponent<Ball>().transform.position = new Vector2(glassesManager.GetComponent<GlassesManager>().tempLastGlass.transform.position.x, glassesManager.GetComponent<GlassesManager>().tempLastGlass.transform.position.y + 1.8f);
-                    animBall1.GetComponent<Ball>().PosY = glassesManager.GetComponent<GlassesManager>().tempLastGlass.transform.position.y + 1.8f;
-                    animBall1.GetComponent<Ball>().Y = glassesManager.GetComponent<GlassesManager>().tempLastGlass.transform.GetChild(glassesManager.GetComponent<GlassesManager>().tempLastBallPos).transform.position.y;
+                    animBall1.GetComponent<Ball>().type = manager.tempLastGlass.transform.GetChild(manager.tempLastBallPos).GetComponent<Ball>().type;
+                    animBall1.GetComponent<Ball>().transform.position = new Vector2(manager.tempLastGlass.transform.position.x, manager.tempLastGlass.transform.position.y + 1.8f);
+                    animBall1.GetComponent<Ball>().PosY = manager.tempLastGlass.transform.position.y + 1.8f;
+                    animBall1.GetComponent<Ball>().Y = manager.tempLastGlass.transform.GetChild(manager.tempLastBallPos).transform.position.y;
 
                     SendToPortal();
 
@@ -147,8 +156,8 @@ public class Glass : MonoBehaviour
                         transform.GetChild(4).GetComponent<Animator>().SetBool("Open", true);
                         FindObjectOfType<AudioManager>().Play(Audio.Clip.GlassFully);
                         StartCoroutine(GlassFullParticle());
-                        glassesManager.GetComponent<GlassesManager>().fullGlassesCount += 1;
-                        glassesManager.GetComponent<GlassesManager>().StartCoroutine(glassesManager.GetComponent<GlassesManager>().CheckGlassesFully());
+                        manager.fullGlassesCount += 1;
+                        manager.StartCoroutine(manager.CheckGlassesFully());
                         return;
                     }
                 }
