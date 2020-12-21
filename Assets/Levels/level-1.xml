@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Level index="1" prize="15">
+<Level index="1" prize="10">
   <glasses>
     <glass>
       <Type>blue</Type>
@@ -10,16 +10,9 @@
     <glass>
       <Type>red</Type>
       <Type>red</Type>
-      <Type>green</Type>
-      <Type>green</Type>
-    </glass>
-    <glass>
-      <Type>green</Type>
-      <Type>green</Type>
       <Type>blue</Type>
       <Type>blue</Type>
     </glass>
-    <glass />
     <glass />
   </glasses>
 </Level>

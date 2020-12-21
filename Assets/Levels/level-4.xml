@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Level index="4" prize="20">
+  <glasses>
+    <glass>
+      <Type>green</Type>
+      <Type>blue</Type>
+      <Type>blue</Type>
+      <Type>blue</Type>
+    </glass>
+    <glass>
+      <Type>yellow</Type>
+      <Type>blue</Type>
+      <Type>red</Type>
+      <Type>yellow</Type>
+    </glass>
+    <glass>
+      <Type>yellow</Type>
+      <Type>green</Type>
+      <Type>green</Type>
+      <Type>yellow</Type>
+    </glass>
+    <glass>
+      <Type>red</Type>
+      <Type>red</Type>
+      <Type>red</Type>
+      <Type>green</Type>
+    </glass>
+    <glass />
+    <glass />
+  </glasses>
+</Level>
