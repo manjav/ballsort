@@ -15,7 +15,7 @@ public class Glass : MonoBehaviour
         this.manager = manager;
         this.index = index;
         for (int i = 0; i < data.Count; i++)
-            transform.GetChild(i).GetComponent<Ball>().type = data[i];
+        transform.GetChild(i).GetComponent<Ball>().type = data[i];
         return this;
     }
 
