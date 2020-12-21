@@ -2,28 +2,34 @@
 <Level prize="20">
   <glasses>
     <glass>
-      <Type>blue</Type>
-      <Type>red</Type>
-      <Type>red</Type>
-      <Type>green</Type>
-    </glass>
-    <glass>
       <Type>yellow</Type>
-      <Type>red</Type>
-      <Type>blue</Type>
       <Type>green</Type>
+      <Type>purple</Type>
+      <Type>purple</Type>
     </glass>
     <glass>
       <Type>green</Type>
-      <Type>yellow</Type>
-      <Type>green</Type>
+      <Type>red</Type>
+      <Type>red</Type>
       <Type>yellow</Type>
     </glass>
     <glass>
-      <Type>blue</Type>
       <Type>yellow</Type>
-      <Type>red</Type>
+      <Type>green</Type>
       <Type>blue</Type>
+      <Type>purple</Type>
+    </glass>
+    <glass>
+      <Type>yellow</Type>
+      <Type>green</Type>
+      <Type>blue</Type>
+      <Type>purple</Type>
+    </glass>
+    <glass>
+      <Type>blue</Type>
+      <Type>blue</Type>
+      <Type>red</Type>
+      <Type>red</Type>
     </glass>
     <glass />
     <glass />

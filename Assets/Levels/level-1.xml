@@ -1,16 +1,18 @@
 <?xml version="1.0"?>
-<Level index="1" prize="10">
+<Level prize="15">
   <glasses>
     <glass>
       <Type>blue</Type>
+      <Type>yellow</Type>
       <Type>blue</Type>
-      <Type>red</Type>
-      <Type>red</Type>
+      <Type>yellow</Type>
     </glass>
     <glass>
-      <Type>red</Type>
-      <Type>red</Type>
+      <Type>yellow</Type>
       <Type>blue</Type>
+      <Type>yellow</Type>
+    </glass>
+    <glass>
       <Type>blue</Type>
     </glass>
     <glass />

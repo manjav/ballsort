@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Level index="4" prize="20">
+<Level prize="20">
   <glasses>
     <glass>
       <Type>green</Type>
