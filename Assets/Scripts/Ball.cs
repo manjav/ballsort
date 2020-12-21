@@ -2,7 +2,7 @@
 
 public class Ball : MonoBehaviour
 {
-    public enum Type { clear, blue, red, green, yellow, orange, purple, aqua };
+    public enum Type { clear, blue, red, green, yellow, orange, purple, cobalt, pink, aqua, white };
      public Type type;
     public Sprite[] imageIndex;
 
